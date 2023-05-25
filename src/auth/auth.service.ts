@@ -23,7 +23,6 @@ export class AuthService {
   }
 
 async  login(loginDto: LoginDto):Promise<LoginResponse>{
-    console.log({loginDto});
     const {email, password } = loginDto;
     const user = await this.userModel.findOne({email})
 
@@ -50,8 +49,6 @@ async  login(loginDto: LoginDto):Promise<LoginResponse>{
 
   async register(registerDto: RegisterUserDto):Promise<LoginResponse>{
     const user = await this.create(registerDto);
-    console.log("New User Register: ", user);
-
 
     return {
       user,
@@ -80,7 +77,6 @@ async  login(loginDto: LoginDto):Promise<LoginResponse>{
 
 
     } catch (error) {
-      console.log(error.code);
       if(error.code === 11000){
         throw new BadRequestException(`${createUserDto.email} already exists!`)
       }
